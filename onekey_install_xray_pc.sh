@@ -53,8 +53,8 @@ install_pc(){
     mv proxypool-linux-amd64-v0.6.0 proxypool
     chmod 755 proxypool
 
-    wget https://raw.githubusercontent.com/hkaa0/proxypool/config.yaml
-    wget https://raw.githubusercontent.com/hkaa0/proxypool/source.yaml
+    wget https://raw.githubusercontent.com/hkaa0/proxypool/main/config.yaml
+    wget https://raw.githubusercontent.com/hkaa0/proxypool/main/source.yaml
    
     cat > ./config.yaml <<-EOF
     domain: $your_domain
