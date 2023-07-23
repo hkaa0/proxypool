@@ -48,13 +48,13 @@ install_pc(){
     echo
     sleep 1
     yum -y install  wget
-    wget https://github.com/lanhebe/proxypool/releases/download/v0.6/proxypool-linux-amd64-v0.6.0.gz
+    wget https://github.com/hkaa0/proxypool/releases/download/v0.6/proxypool-linux-amd64-v0.6.0.gz
     gzip -d proxypool-linux-amd64-v0.6.0.gz
     mv proxypool-linux-amd64-v0.6.0 proxypool
     chmod 755 proxypool
 
-    wget https://raw.githubusercontent.com/lanhebe/proxypool/master/config.yaml
-    wget https://raw.githubusercontent.com/lanhebe/proxypool/master/source.yaml
+    wget https://raw.githubusercontent.com/hkaa0/proxypool/master/config.yaml
+    wget https://raw.githubusercontent.com/hkaa0/proxypool/master/source.yaml
    
     cat > ./config.yaml <<-EOF
     domain: $your_domain
@@ -444,8 +444,8 @@ function start_menu(){
     green " ======================================================"
     green " 描述：xray + 免费节点爬虫一键安装脚本"
     green " 系统：仅支持centos7"
-    green " 作者：Littleyu+部分代码源于网络  www.yugogo.xyz"
-    green " YouTuBe频道：Littleyu科学上网"
+    green " 五叶TG节点分享频道：https://t.me/hkaa0"
+    green " 五叶小铺：https://shop.hkaa0.top"
     green " ======================================================"
     echo
     green " 1. 安装 xray + 免费节点爬虫"
