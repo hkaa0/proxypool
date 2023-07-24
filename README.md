@@ -61,7 +61,7 @@ $ go get -u -v github.com/hkaa0/proxypool
 
 运行
 ```shell script
-$ go run main.go -c ./config/config.yaml
+$ go run main.go -c ./config.yaml
 ```
 
 编译
@@ -92,7 +92,7 @@ docker pull docker.pkg.github.com/hkaa0/proxypool/proxypool:latest
 使用 `-c` 参数指定配置文件路径，支持http链接
 
 ```shell
-proxypool -c ./config/config.yaml
+proxypool -c ./config.yaml
 ```
 
 如果需要部署到VPS，更多细节请[查看wiki](https://github.com/Sansui233/proxypool/wiki/%E9%83%A8%E7%BD%B2%E5%88%B0VPS-Step-by-Step)。
