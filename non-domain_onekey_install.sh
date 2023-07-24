@@ -38,12 +38,12 @@ check_os(){
 disable_selinux(){
 
     yum -y install net-tools socat
-    Port81=`netstat -tlpn | awk -F '[: ]+' '$1=="tcp"{print $5}' | grep -w 81`
+    Port80=`netstat -tlpn | awk -F '[: ]+' '$1=="tcp"{print $5}' | grep -w 80`
     Port443=`netstat -tlpn | awk -F '[: ]+' '$1=="tcp"{print $5}' | grep -w 443`
-    if [ -n "$Port81" ]; then
-        process81=`netstat -tlpn | awk -F '[: ]+' '$5=="81"{print $9}'`
+    if [ -n "$Port80" ]; then
+        process80=`netstat -tlpn | awk -F '[: ]+' '$5=="80"{print $9}'`
         red "==========================================================="
-        red "检测到81端口被占用，占用进程为：${process81}，本次安装结束"
+        red "检测到80端口被占用，占用进程为：${process80}，本次安装结束"
         red "==========================================================="
         exit 1
     fi
@@ -60,10 +60,10 @@ disable_selinux(){
             green "$(date +"%Y-%m-%d %H:%M:%S") - SELinux状态非disabled,关闭SELinux."
             setenforce 0
             sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
-            #loggreen "SELinux is not disabled, add port 81/443 to SELinux rules."
+            #loggreen "SELinux is not disabled, add port 80/443 to SELinux rules."
             #loggreen "==== Install semanage"
             #logcmd "yum install -y policycoreutils-python"
-            #semanage port -a -t http_port_t -p tcp 81
+            #semanage port -a -t http_port_t -p tcp 80
             #semanage port -a -t http_port_t -p tcp 443
             #semanage port -a -t http_port_t -p tcp 37212
             #semanage port -a -t http_port_t -p tcp 37213
@@ -76,7 +76,7 @@ disable_selinux(){
     firewall_status=`systemctl status firewalld | grep "Active: active"`
     if [ -n "$firewall_status" ]; then
         green "检测到firewalld开启状态，关闭firewalld"
-        #firewall-cmd --zone=public --add-port=81/tcp --permanent
+        #firewall-cmd --zone=public --add-port=80/tcp --permanent
         #firewall-cmd --zone=public --add-port=443/tcp --permanent
         #firewall-cmd --reload
         systemctl stop firewalld
@@ -92,7 +92,7 @@ disable_selinux(){
     else
         iptables -A INPUT -p tcp -m tcp --dport ${SSH_PORT} -j ACCEPT
     fi
-    iptables -A INPUT -p tcp -m tcp --dport 81 -j ACCEPT
+    iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
     iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
     iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
     iptables -A INPUT -i lo -j ACCEPT
@@ -186,7 +186,7 @@ EOF
 
 cat > /etc/nginx/conf.d/default.conf<<-EOF
 server {
-    listen 81;
+    listen 80;
     server_name $your_domain;
     root /usr/share/nginx/html;
     index index.php index.html;
@@ -197,7 +197,7 @@ server {
         include fastcgi_params;
     }
     location / {
-       proxy_pass http://127.0.0.1:12581/;
+       proxy_pass http://127.0.0.1:12580/;
     }
 }
 EOF
@@ -241,7 +241,7 @@ download_pc(){
    
     cat > ./config.yaml <<-EOF
     domain: $your_domain
-    port:                 # default 12581
+    port:                 # default 12580
     # source list file
     source-files:
       # use local file

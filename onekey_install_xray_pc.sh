@@ -33,7 +33,7 @@ install_pc(){
     else
         iptables -A INPUT -p tcp -m tcp --dport ${SSH_PORT} -j ACCEPT
     fi
-    iptables -A INPUT -p tcp -m tcp --dport 81 -j ACCEPT
+    iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
     iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
     iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
     iptables -A INPUT -i lo -j ACCEPT
@@ -58,7 +58,7 @@ install_pc(){
    
     cat > ./config.yaml <<-EOF
     domain: $your_domain
-    port:                 # default 12581
+    port:                 # default 12580
     # source list file
     source-files:
       # use local file
@@ -123,7 +123,7 @@ check_release(){
         firewall_status=`firewall-cmd --state`
         if [ "$firewall_status" == "running" ]; then
             green "$(date +"%Y-%m-%d %H:%M:%S") - FireWalld状态为running,关闭FireWalld."
-            #firewall-cmd --zone=public --add-port=81/tcp --permanent
+            #firewall-cmd --zone=public --add-port=80/tcp --permanent
             #firewall-cmd --zone=public --add-port=443/tcp --permanent
             #firewall-cmd --reload
             systemctl disable firewalld
@@ -152,11 +152,11 @@ check_port(){
     echo
     echo
     $systemPackage -y install net-tools
-    Port81=`netstat -tlpn | awk -F '[: ]+' '$1=="tcp"{print $5}' | grep -w 81`
+    Port80=`netstat -tlpn | awk -F '[: ]+' '$1=="tcp"{print $5}' | grep -w 80`
     Port443=`netstat -tlpn | awk -F '[: ]+' '$1=="tcp"{print $5}' | grep -w 443`
-    if [ -n "$Port81" ]; then
-        process81=`netstat -tlpn | awk -F '[: ]+' '$5=="81"{print $9}'`
-        red "$(date +"%Y-%m-%d %H:%M:%S") - 81端口被占用,占用进程:${process81}\n== Install failed."
+    if [ -n "$Port80" ]; then
+        process80=`netstat -tlpn | awk -F '[: ]+' '$5=="80"{print $9}'`
+        red "$(date +"%Y-%m-%d %H:%M:%S") - 80端口被占用,占用进程:${process80}\n== Install failed."
         exit 1
     fi
     if [ -n "$Port443" ]; then
@@ -201,7 +201,7 @@ EOF
 
 cat > /etc/nginx/conf.d/default.conf<<-EOF    
 server { 
-    listen       0.0.0.0:81;
+    listen       0.0.0.0:80;
     server_name  $your_domain;
     root /usr/share/nginx/html/;
     index index.php index.html;
@@ -223,7 +223,7 @@ EOF
     fi
 cat > /etc/nginx/conf.d/default.conf<<-EOF
 server {
-    listen       0.0.0.0:81;
+    listen       0.0.0.0:80;
     server_name  $your_domain;
     return 301 https://$your_domain\$request_uri;
 }
@@ -239,7 +239,7 @@ server {
         include fastcgi_params;
     }
     location / {
-       proxy_pass http://127.0.0.1:12581/;
+       proxy_pass http://127.0.0.1:12580/;
     }
 }
 EOF
@@ -319,7 +319,7 @@ cat > /usr/local/etc/xray/client.json<<-EOF
     },
     "inbounds": [
         {
-            "port": 1081,
+            "port": 1080,
             "listen": "127.0.0.1",
             "protocol": "socks",
             "settings": {
