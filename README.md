@@ -56,7 +56,7 @@ wget https://raw.githubusercontent.com/hkaa0/proxypool/master/onekey_install.sh 
 需要安装Golang 
 
 ```sh
-$ go get -u -v github.com/lanhebe/proxypool
+$ go get -u -v github.com/hkaa0/proxypool
 ```
 
 运行
