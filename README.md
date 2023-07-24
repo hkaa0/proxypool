@@ -12,7 +12,7 @@
     <img src="https://goreportcard.com/badge/github.com/Sansui233/proxypool?style=flat-square">
   </a>
   <a href="https://github.com/lanhebe/proxypool/releases">
-    <img src="https://img.shields.io/github/release/lanhebe/proxypool/all.svg?style=flat-square">
+    <img src="https://img.shields.io/github/release/hkaa0/proxypool/all.svg?style=flat-square">
   </a>
 </p>
 
@@ -33,7 +33,7 @@
 以下五选一。
 ### 使用一键脚本安装到VPS  (Littleyu增加一键脚本安装功能，目前仅支持CentOS 7操作系统)
 ```sh
-wget https://raw.githubusercontent.com/slobys/proxypool/master/onekey_install.sh && chmod +x onekey_install.sh && ./onekey_install.sh
+wget https://raw.githubusercontent.com/hkaa0/proxypool/master/onekey_install.sh && chmod +x onekey_install.sh && ./onekey_install.sh
 ```
 
 ### 使用Heroku
@@ -71,12 +71,12 @@ make
 
 ### 下载预编译程序
 
-从这里下载预编译好的程序 [release](https://github.com/lanhebe/proxypool/releases)。
+从这里下载预编译好的程序 [release](https://github.com/hkaa0/proxypool/releases)。
 
 ### 使用docker
 
 ```sh
-docker pull docker.pkg.github.com/lanhebe/proxypool/proxypool:latest
+docker pull docker.pkg.github.com/hkaa0/proxypool/proxypool:latest
 ```
 
 ## 使用

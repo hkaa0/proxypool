@@ -3,7 +3,7 @@ package proxy
 import (
 	"errors"
 
-	"github.com/lanhebe/proxypool/pkg/tool"
+	"github.com/hkaa0/proxypool/pkg/tool"
 )
 
 var ErrorTypeCanNotConvert = errors.New("type not support")
